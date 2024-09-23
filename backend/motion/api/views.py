@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from motion.models import Category, Tournament
 from .serializers import MotionSerializer, CategorySerializer, TournamentSerializer

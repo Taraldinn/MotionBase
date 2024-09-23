@@ -6,23 +6,23 @@ import TournamentFilter from "./components/TournamentFilter";
 import LanguageSelector from "./components/LanguageSelector";
 import { Globe, Filter, Trophy } from "lucide-react";
 
-export default function Component() {
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:8000/api";
 
+export default function Component() {
+  const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [motions, setMotions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tournaments, setTournaments] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTournament, setSelectedTournament] = useState("");
-  const [language, setLanguage] = useState("EN");
+  const [language, setLanguage] = useState("BN");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [motionsRes, categoriesRes, tournamentsRes] = await Promise.all([
-          axios.get(`${API_BASE_URL}/motion/?language=${language}`),
-          axios.get(`${API_BASE_URL}/category`),
-          axios.get(`${API_BASE_URL}/tournament/`)
+          axios.get(`${VITE_API_BASE_URL}/motion/?language=${language}`),
+          axios.get(`${VITE_API_BASE_URL}/category`),
+          axios.get(`${VITE_API_BASE_URL}/tournament/`)
         ]);
 
         setMotions(motionsRes.data);
@@ -34,7 +34,7 @@ export default function Component() {
     };
 
     fetchData();
-  }, [API_BASE_URL, language]);
+  }, [VITE_API_BASE_URL, language]);
 
   const handleCategoryChange = (categoryId) => setSelectedCategory(categoryId);
   const handleTournamentChange = (tournamentId) => setSelectedTournament(tournamentId);
